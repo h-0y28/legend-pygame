@@ -115,10 +115,16 @@ def mode_select_screen():
     modes = ["노말", "하드코어", "무한 콤보"]
     while True:
         screen.fill(BLACK)
-        draw_text("🎮 모드 선택 🎮", 150, 100, BLUE, BIG_FONT)
+        draw_text("🎮 모드 선택 🎮", 120, 100, BLUE, BIG_FONT)
+
         for i, mode in enumerate(modes):
-            draw_button(mode, 150, 180 + i * 70, 180, 50)
-            draw_text(get_mode_description(mode), 100, 180 + i * 70 + 60, GRAY, FONT)
+            button_y = 180 + i * 90  # 버튼 간격을 더 넓혀줌
+            draw_button(mode, 150, button_y, 180, 50)
+
+            # 설명 텍스트는 버튼보다 더 아래에 출력
+            desc_y = button_y + 50
+            draw_text(get_mode_description(mode), 150, desc_y, GRAY, FONT)
+
         pygame.display.flip()
 
         for event in pygame.event.get():
@@ -126,7 +132,8 @@ def mode_select_screen():
                 pygame.quit(); sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for i, mode in enumerate(modes):
-                    if 150 <= event.pos[0] <= 330 and (180 + i * 70) <= event.pos[1] <= (230 + i * 70):
+                    button_y = 180 + i * 90
+                    if 150 <= event.pos[0] <= 330 and button_y <= event.pos[1] <= (button_y + 50):
                         current_mode = mode
                         return
 
