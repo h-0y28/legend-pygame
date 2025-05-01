@@ -215,7 +215,9 @@ reset_game()
 start_time = pygame.time.get_ticks()
 game_active = True
 
-# 게임 루프
+# 키 누름 상태 추적
+keys_held = {k: False for k in key_mapping.keys()}
+
 while game_active:
     screen.fill(BLACK)
     draw_judgeline()
